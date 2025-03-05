@@ -84,4 +84,19 @@ public class DataGenerator {
         // Формирование корректного СНИЛС
         return snils + String.format("-%02d", controlNumber);
     }
+
+    // Генерация случайного номера телефона (формат: 9782117868)
+    public static String generatePhoneNumber() {
+        // Генерация номера телефона в формате 9xxxxxxxxx
+        return "9" + faker.number().digits(9);
+    }
+
+    public static void main(String[] args) {
+        // Пример использования всех генераторов
+        System.out.println("ФИО: " + generateFIO());
+        System.out.println("Дата рождения: " + generateDateOfBirth());
+        System.out.println("Паспорт: " + generatePassport());
+        System.out.println("СНИЛС: " + generateSnils());
+        System.out.println("Телефон: " + generatePhoneNumber());
+    }
 }

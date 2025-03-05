@@ -15,6 +15,7 @@ public class LoginTests {
     private static String passport;
     private static String fio; // Переменная для хранения сгенерированного ФИО
     private static String dateOfBirth; // Переменная для хранения сгенерированной даты рождения
+    private static String phoneNumber; // Переменная для хранения сгенерированного номера телефона
 
     @BeforeAll
     static void beforeAll() {
@@ -23,11 +24,12 @@ public class LoginTests {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://app-test16-3.myhrlink.ru";
 
-        // Генерация данных для СНИЛС, паспорта, ФИО и даты рождения через DataGenerator
+        // Генерация данных для СНИЛС, паспорта, ФИО, даты рождения и номера телефона через DataGenerator
         snils = DataGenerator.generateSnils();  // Генерация СНИЛС
         passport = DataGenerator.generatePassport();  // Генерация паспорта
         fio = DataGenerator.generateFIO();  // Генерация случайного ФИО
         dateOfBirth = DataGenerator.generateDateOfBirth(); // Генерация случайной даты рождения
+        phoneNumber = DataGenerator.generatePhoneNumber(); // Генерация случайного номера телефона
     }
 
     @BeforeEach
@@ -76,6 +78,19 @@ public class LoginTests {
 
     @Test
     void newEmployeeCreateTest() {
+        $("[data-qa='employee-new-card-next-step-button']").click();
+        // Вставляем сгенерированный номер телефона
+        $("input[data-qa='phone-field-phone-digit-input']").setValue(phoneNumber);
+        $("[data-qa='employee-new-card-next-step-button']").click();
+
+        $("[data-qa='employee-new-card-legal-entity-select']").click();
+        $("[data-qa='employee-new-card-gender-legal-entity-select-option-6']").click();
+
+        $("[data-qa='employee-new-card-employee-roles-select']").click();
+        $("[data-qa='employee-new-card-employee-roles-select-option-1']").click();
+
+        $("[data-qa='employee-new-card-save-button']").click();
+        sleep(10000);
         // Ваш тестовый код для создания нового сотрудника
     }
 }
